@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.css';
+import './Images/checkMarkSmall(40x37).png';
 
 var remaining = 14;
 
@@ -10,7 +11,7 @@ function Task(props) {
         className="checkBox"
         onClick={() => props.onClick()}
         style={props.style}
-      />
+      >{props.cont}</button>
       <p className="taskTitle">{props.taskTitle}</p>
     </div>
   );
@@ -44,7 +45,7 @@ class TaskDisplayBox extends React.Component {
   }
   checkUncheck(i) {
     let completion = this.state.completion.slice();
-    completion[i] = completion[i] == 'black' ? 'white' : 'black';
+    completion[i] = completion[i]== null ? checkMark : null;
     this.setState({
       completion: completion
     });
@@ -53,19 +54,15 @@ class TaskDisplayBox extends React.Component {
   renderTask(i) {
     let style =
       i > 0
-        ? {
-            background: this.state.completion[i]
-          }
-        : {
-            background: this.state.completion[i],
-            marginTop: '4px'
-          };
+        ? {}
+        : {marginTop: '4px'};
     let divStyle = i > 0 ? {} : { border: 'none' };
     return (
       <Task
         taskTitle={this.state.titles[i]}
-        style={style}
         divStyle={divStyle}
+        style = {style}
+        cont = {this.state.completion[i]}
         onClick={() => this.checkUncheck(i)}
       />
     );
