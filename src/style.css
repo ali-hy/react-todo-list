@@ -1,17 +1,73 @@
-h1, p {
+h1,
+p {
   font-family: Lato;
 }
-.task{
-  border-top: 1px solid black;
-  width: 100%; 
-  padding-bottom: 0; margin-bottom: 0;
+
+body,html{
+  height: 100%;
+  margin: 0;
 }
-.checkBox{
-  border: 2px solid black;
-  padding: 0; width: 12px; height:12px;
+body{
+  background: rgb(240, 240, 240);
+}
+
+/*Title*/
+.Title {
+  margin: 50px auto;
+  text-align: center;
+  font-weight: 900;
+}
+
+/*TASK FORMAT*/
+.task {
+  border-top: 3px solid lightgray;
+  width: 90%;
+  margin: auto;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.checkBox {
+  border: 2px solid #555;
+  border-radius: 3px;
+  padding: 0;
+  width: 12px;
+  height: 12px;
   margin: 20px 15px 2px 5px;
   float: left;
+  background: white;
 }
-.taskTitle{
+.taskTitle {
   color: black;
+}
+
+/*DISPLAY OF TASKS*/
+.taskDisplayBox {
+  background: white;
+  padding: 20pt;
+  border-radius: 10px;
+  position: relative;
+  width: 85%; max-width: 600px;
+  height: 400px;
+  overflow-y: scroll;
+  margin: auto;
+  filter: drop-shadow(0 0 5px #777);
+}
+
+    /*SCROLLBAR*/
+.taskDisplayBox::-webkit-scrollbar{
+  position: relative;
+  width: 5px;
+}
+.taskDisplayBox::-webkit-scrollbar-track{
+  position: relative;
+  background:transparent;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.taskDisplayBox::-webkit-scrollbar-thumb{
+  background:#ccc;
+  border-radius: 15px;
+}
+.taskDisplayBox::-webkit-scrollbar-thumb:hover{
+  background:#777;
 }
