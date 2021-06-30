@@ -1,8 +1,5 @@
 import React from 'react';
 import './style.css';
-import './Images/checkMarkSmall(40x37).png';
-
-var remaining = 14;
 
 function Task(props) {
   return (
@@ -45,7 +42,7 @@ class TaskDisplayBox extends React.Component {
   }
   checkUncheck(i) {
     let completion = this.state.completion.slice();
-    completion[i] = completion[i]== null ? checkMark : null;
+    completion[i] = completion[i]== null ? null : null;
     this.setState({
       completion: completion
     });
