@@ -24,7 +24,7 @@ button{
   border-radius: 10px;
   position: relative;
   width: 85%;
-  max-width: 600px;
+  min-width: 500px; max-width: 600px;
   margin: auto;
 }
 
@@ -37,16 +37,16 @@ button{
 
 /*TASK FORMAT*/
 .task {
-  border-top: 3px solid #eee;
+  border-top: 3px solid #ded;
   width: 90%;
   margin: auto;
   padding-bottom: 0;
   margin-bottom: 0;
 }
 .checkBox {
-  border: 2px solid #555;
+  border: 2px solid lightgray;
   border-radius: 3px;
-  padding: 0;
+  padding: 5px;
   width: 12px;
   height: 12px;
   margin: 20px 15px 2px 5px;
@@ -57,7 +57,7 @@ button{
   font-weight: 900;
 }
 .checkBox p{
-  margin-top: -6pt;
+  margin: -9pt 0 0 -4pt;
 }
 .taskTitle {
   color: black;
@@ -71,7 +71,7 @@ button{
 .textBox{
   position: absolute;
   top: 50%; transform: translateY(-50%);
-  font-size: 17pt;
+  font-size: 12pt; padding: 5pt;
 }
 .categoryButton, .addButton{
   position: absolute;
