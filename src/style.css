@@ -68,6 +68,11 @@ button{
   height: 30pt;
   margin-bottom: 10pt;
 }
+.textBox{
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  font-size: 17pt;
+}
 .categoryButton, .addButton{
   position: absolute;
   top: 50%; transform: translateY(-50%);
