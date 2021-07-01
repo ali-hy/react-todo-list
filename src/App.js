@@ -27,6 +27,7 @@ class TaskAdder extends React.Component{
       <div className = "taskAdder box"> 
         <input type="text" className="textBox" id="textInput"></input>
         <button className="addButton"
+          id = "addButton"
           onClick = {()=> this.props.add(this.state.currentCategory)}
           disabled = {false}>ADD</button>
         <button className="categoryButton">{this.props.categories[this.state.currentCategory]}</button>
@@ -40,15 +41,7 @@ class TaskDisplayBox extends React.Component {
     super(props);
     this.state = {
       categories:['Uncategorized', 'Work'],
-      titles: [
-        'Have breakfast',
-        'Take shower',
-        'Code 1 Hour',
-        'Take out the trash',
-        'Call dad',
-        'Do dishes',
-        'Check Mail',
-      ],
+      titles: [],
       completion: [],
       category: []
     };

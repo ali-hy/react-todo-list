@@ -1,1 +1,12 @@
 <div id="root"></div>
+<script>
+  var titleInput = document.getElementById("textInput");
+  titleInput.addEventListener("keyup", function(event){
+    if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("addButton").click();
+    }
+  });
+  var taskAdder = document.getElementById("addButton");
+  taskAdder.setState({disable: titleInput.value == '' ? true : false,})
+</script>

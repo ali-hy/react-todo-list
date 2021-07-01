@@ -73,6 +73,9 @@ button{
   top: 50%; transform: translateY(-50%);
   font-size: 12pt; padding: 5pt;
 }
+.textBox:focus{
+  border: 5px solid red;
+}
 .categoryButton, .addButton{
   position: absolute;
   top: 50%; transform: translateY(-50%);
