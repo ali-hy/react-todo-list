@@ -8,18 +8,35 @@ function Task(props) {
         className="checkBox"
         onClick={() => props.onClick()}
         style={props.style}
-      >{props.cont}</button>
+      ><p>{props.cont}</p></button>
       <p className="taskTitle">{props.taskTitle}</p>
     </div>
   );
 }
 
-
+class TaskAdder extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={
+      currentCategory: 0,
+    };
+  }
+  render(){
+    return(
+      <div className = "taskAdder box"> 
+        <input type="text" className="textBox"></input>
+        <button className="addButton">ADD</button>
+        <button className="categoryButton">{this.props.categories[this.state.currentCategory]}</button>
+      </div>
+    );
+  }
+}
 
 class TaskDisplayBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      categories:['Uncategorized', 'Work'],
       titles: [
         'Have breakfast',
         'Take shower',
@@ -53,6 +70,7 @@ class TaskDisplayBox extends React.Component {
         style = {style}
         cont = {this.state.completion[i]}
         onClick={() => this.checkUncheck(i)}
+        cont = {this.state.completion[i]? '✔' : ''}
       />
     );
   }
@@ -62,7 +80,7 @@ class TaskDisplayBox extends React.Component {
     for (let i = 0; i < this.state.titles.length; i++) {
       res.push(this.renderTask(i));
     }
-    return <div className="taskDisplayBox">{res}</div>;
+    return <div><TaskAdder categories={this.state.categories}/> <div className="taskDisplay box">{res}</div></div>;
   }
 }
 

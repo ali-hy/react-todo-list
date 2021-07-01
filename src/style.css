@@ -3,12 +3,29 @@ p {
   font-family: Lato;
 }
 
-body,html{
+body,
+html {
   height: 100%;
   margin: 0;
+  max-height: 700px;
 }
-body{
+body {
   background: rgb(240, 240, 240);
+}
+
+button{
+  user-select: none;
+}
+
+.box {
+  background: white;
+  filter: drop-shadow(0 0 5px #ddd);
+  padding: 20pt;
+  border-radius: 10px;
+  position: relative;
+  width: 85%;
+  max-width: 600px;
+  margin: auto;
 }
 
 /*Title*/
@@ -28,52 +45,69 @@ body{
 }
 .checkBox {
   border: 2px solid #555;
-  border-radius: 3px; 
+  border-radius: 3px;
   padding: 0;
   width: 12px;
   height: 12px;
   margin: 20px 15px 2px 5px;
   float: left;
   background: white;
+  font-size: 11pt;
+  color: rgba(102,170,102,0.9);
+  font-weight: 900;
+}
+.checkBox p{
+  margin-top: -6pt;
 }
 .taskTitle {
   color: black;
 }
 
 /*TASK ADDER*/
-.taskAdder{
-
+.taskAdder {
+  height: 30pt;
+  margin-bottom: 10pt;
 }
+.categoryButton, .addButton{
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  padding: 10pt;
+  border-radius: 5px;
+  border: none;
+}
+.categoryButton{
+  left: 60%;
+  font-weight: lighter;
+  background: #ddd;
+}.categoryButton:hover{background:#ccc;}
 
+.addButton{
+  left: 85%;
+  font-weight: 700;
+  background: #8c8;
+}.addButton:hover{background: #7b7;}
 
 /*DISPLAY OF TASKS*/
-.taskDisplayBox {
-  background: white;
-  padding: 20pt;
-  border-radius: 10px;
-  position: relative;
-  width: 85%; max-width: 600px;
-  height: 376px;
+.taskDisplay {
+  height: 377px;
   overflow-y: scroll;
-  margin: auto;
-  filter: drop-shadow(0 0 5px #ddd);
 }
 
-    /*SCROLLBAR*/
-.taskDisplayBox::-webkit-scrollbar{
+/*SCROLLBAR*/
+.taskDisplay::-webkit-scrollbar {
   position: relative;
   width: 5px;
 }
-.taskDisplayBox::-webkit-scrollbar-track{
+.taskDisplay::-webkit-scrollbar-track {
   position: relative;
-  background:transparent;
+  background: transparent;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.taskDisplayBox::-webkit-scrollbar-thumb{
-  background:#ccc;
+.taskDisplay::-webkit-scrollbar-thumb {
+  background: #ccc;
   border-radius: 15px;
 }
-.taskDisplayBox::-webkit-scrollbar-thumb:hover{
-  background:#777;
+.taskDisplay::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
