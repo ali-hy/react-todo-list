@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import './style.css';
 
 function Task(props) {
@@ -22,19 +22,9 @@ class TaskDisplayBox extends React.Component {
     this.state = {
       titles: [
         'Eat breakfast',
-        'Gain power from Orochimaru',
-        'Kill Orochimaru',
-        'Hunt down Itachi',
-        'Avenge Itachi',
-        'Discover what a village is',
-        'Sever all bonds',
-        'Fail at that',
-        'Lose arm',
-        'Become the best shadow hokage this village has ever seen',
-        'Marry Sakura',
-        'Investigate threats like Kaguya',
-        'Meet Sarada, your daughter',
-        'Train Boruto'
+        'Take shower',
+        'Code 1 Hour',
+        ''
       ],
       completion: [],
       folder: [null, null, null, null]
@@ -46,7 +36,6 @@ class TaskDisplayBox extends React.Component {
     this.setState({
       completion: completion
     });
-    remaining--;
   }
   renderTask(i) {
     let style =
@@ -79,5 +68,5 @@ function Title(props) {
 }
 
 export default function App() {
-  return <> <Title remaining= {remaining}/> <TaskDisplayBox /> </>;
+  return <> <Title remaining= {}/> <TaskDisplayBox /> </>;
 }
