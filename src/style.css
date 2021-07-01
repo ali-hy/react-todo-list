@@ -13,14 +13,14 @@ body{
 
 /*Title*/
 .Title {
-  margin: 50px auto;
+  margin: 30px auto;
   text-align: center;
   font-weight: 900;
 }
 
 /*TASK FORMAT*/
 .task {
-  border-top: 3px solid lightgray;
+  border-top: 3px solid #eee;
   width: 90%;
   margin: auto;
   padding-bottom: 0;
@@ -28,7 +28,7 @@ body{
 }
 .checkBox {
   border: 2px solid #555;
-  border-radius: 3px;
+  border-radius: 3px; 
   padding: 0;
   width: 12px;
   height: 12px;
@@ -40,6 +40,12 @@ body{
   color: black;
 }
 
+/*TASK ADDER*/
+.taskAdder{
+
+}
+
+
 /*DISPLAY OF TASKS*/
 .taskDisplayBox {
   background: white;
@@ -47,10 +53,10 @@ body{
   border-radius: 10px;
   position: relative;
   width: 85%; max-width: 600px;
-  height: 400px;
+  height: 376px;
   overflow-y: scroll;
   margin: auto;
-  filter: drop-shadow(0 0 5px #777);
+  filter: drop-shadow(0 0 5px #ddd);
 }
 
     /*SCROLLBAR*/

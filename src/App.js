@@ -21,10 +21,13 @@ class TaskDisplayBox extends React.Component {
     super(props);
     this.state = {
       titles: [
-        'Eat breakfast',
+        'Have breakfast',
         'Take shower',
         'Code 1 Hour',
-        ''
+        'Take out the trash',
+        'Call dad',
+        'Do dishes',
+        'Check Mail',
       ],
       completion: [],
       folder: [null, null, null, null]
@@ -32,7 +35,7 @@ class TaskDisplayBox extends React.Component {
   }
   checkUncheck(i) {
     let completion = this.state.completion.slice();
-    completion[i] = completion[i]== null ? null : null;
+    completion[i] = completion[i]? false : true;
     this.setState({
       completion: completion
     });
