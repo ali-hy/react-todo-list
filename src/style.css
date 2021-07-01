@@ -3,71 +3,119 @@ p {
   font-family: Lato;
 }
 
-body,html{
+body,
+html {
   height: 100%;
   margin: 0;
+  max-height: 700px;
 }
-body{
+body {
   background: rgb(240, 240, 240);
+}
+
+button{
+  user-select: none;
+}
+
+.box {
+  background: white;
+  filter: drop-shadow(0 0 5px #ddd);
+  padding: 20pt;
+  border-radius: 10px;
+  position: relative;
+  width: 85%;
+  min-width: 500px; max-width: 600px;
+  margin: auto;
 }
 
 /*Title*/
 .Title {
-  margin: 50px auto;
+  margin: 30px auto;
   text-align: center;
   font-weight: 900;
 }
 
 /*TASK FORMAT*/
 .task {
-  border-top: 3px solid lightgray;
+  border-top: 3px solid #ded;
   width: 90%;
   margin: auto;
   padding-bottom: 0;
   margin-bottom: 0;
 }
 .checkBox {
-  border: 2px solid #555;
+  border: 2px solid lightgray;
   border-radius: 3px;
-  padding: 0;
+  padding: 5px;
   width: 12px;
   height: 12px;
   margin: 20px 15px 2px 5px;
   float: left;
   background: white;
+  font-size: 11pt;
+  color: rgba(102,170,102,0.9);
+  font-weight: 900;
+}
+.checkBox p{
+  margin: -9pt 0 0 -4pt;
 }
 .taskTitle {
   color: black;
 }
 
+/*TASK ADDER*/
+.taskAdder {
+  height: 30pt;
+  margin-bottom: 10pt;
+}
+.textBox{
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  font-size: 12pt; padding: 5pt;
+}
+.textBox:focus{
+  border: 5px solid red;
+}
+.categoryButton, .addButton{
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  padding: 10pt;
+  border-radius: 5px;
+  border: none;
+}
+.categoryButton{
+  left: 60%;
+  font-weight: lighter;
+  background: #ddd;
+}.categoryButton:hover{background:#ccc;}
+
+.addButton{
+  left: 85%;
+  font-weight: 700;
+  background: #8c8;
+}.addButton:hover{background: #7b7;}
+
 /*DISPLAY OF TASKS*/
-.taskDisplayBox {
-  background: white;
-  padding: 20pt;
-  border-radius: 10px;
-  position: relative;
-  width: 85%; max-width: 600px;
-  height: 400px;
+.taskDisplay {
+  height: 377px;
   overflow-y: scroll;
-  margin: auto;
-  filter: drop-shadow(0 0 5px #777);
 }
 
-    /*SCROLLBAR*/
-.taskDisplayBox::-webkit-scrollbar{
+/*SCROLLBAR*/
+.taskDisplay::-webkit-scrollbar {
   position: relative;
   width: 5px;
 }
-.taskDisplayBox::-webkit-scrollbar-track{
+.taskDisplay::-webkit-scrollbar-track {
   position: relative;
-  background:transparent;
+  background: transparent;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-.taskDisplayBox::-webkit-scrollbar-thumb{
-  background:#ccc;
+.taskDisplay::-webkit-scrollbar-thumb {
+  background: #ccc;
   border-radius: 15px;
 }
-.taskDisplayBox::-webkit-scrollbar-thumb:hover{
-  background:#777;
+.taskDisplay::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
