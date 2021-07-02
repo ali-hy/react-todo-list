@@ -20,16 +20,18 @@ class TaskAdder extends React.Component{
     this.state={
       currentCategory: 0,
       disable: true,
+      value:'',
     };
   }  
   render(){
     return(
       <div className = "taskAdder box"> 
-        <input type="text" className="textBox" id="textInput"></input>
+        <input type="text" className="textBox" id="textInput"
+        onChange={e=>this.setState({value: e.target.value,})} />
         <button className="addButton"
           id = "addButton"
           onClick = {()=> this.props.add(this.state.currentCategory)}
-          disabled = {false}>ADD</button>
+          disabled = {this.state.value == ''}>ADD</button>
         <button className="categoryButton">{this.props.categories[this.state.currentCategory]}</button>
       </div>
     );

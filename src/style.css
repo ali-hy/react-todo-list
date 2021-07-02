@@ -71,10 +71,12 @@ button{
 .textBox{
   position: absolute;
   top: 50%; transform: translateY(-50%);
-  font-size: 12pt; padding: 5pt;
+  font-size: 12pt; padding: 5pt; padding-bottom: 0;
+  border:none; border-bottom: 1px solid#ccc;
 }
 .textBox:focus{
-  border: 5px solid red;
+  border: none; border-bottom: 1px solid#999;
+  outline: none;
 }
 .categoryButton, .addButton{
   position: absolute;
