@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 h1,
 p {
   font-family: Lato;
@@ -5,6 +6,7 @@ p {
 
 body,
 html {
+  user-select: none;
   height: 100%;
   margin: 0;
   max-height: 700px;
@@ -13,7 +15,7 @@ body {
   background: rgb(240, 240, 240);
 }
 
-button{
+button {
   user-select: none;
 }
 
@@ -24,7 +26,8 @@ button{
   border-radius: 10px;
   position: relative;
   width: 85%;
-  min-width: 500px; max-width: 600px;
+  min-width: 500px;
+  max-width: 600px;
   margin: auto;
 }
 
@@ -53,10 +56,10 @@ button{
   float: left;
   background: white;
   font-size: 11pt;
-  color: rgba(102,170,102,0.9);
+  color: rgba(102, 170, 102, 0.9);
   font-weight: 900;
 }
-.checkBox p{
+.checkBox p {
   margin: -9pt 0 0 -4pt;
 }
 .taskTitle {
@@ -68,36 +71,50 @@ button{
   height: 30pt;
   margin-bottom: 10pt;
 }
-.textBox{
+.textBox {
   position: absolute;
-  top: 50%; transform: translateY(-50%);
-  font-size: 12pt; padding: 5pt; padding-bottom: 0;
-  border:none; border-bottom: 1px solid#ccc;
-  width: 40%; margin-left: 3.5%;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12pt;
+  padding: 5pt;
+  padding-bottom: 3pt;
+  border: none;
+  border-bottom: 1px solid#ccc;
+  width: 40%;
+  margin-left: 3.5%;
 }
-.textBox:focus{
-  border: none; border-bottom: 1px solid#999;
+.textBox:focus {
+  border: none;
+  border-bottom: 1px solid#999;
   outline: none;
 }
-.categoryButton, .addButton{
+.categoryButton,
+.addButton {
   position: absolute;
-  top: 50%; transform: translateY(-50%);
+  top: 50%;
+  transform: translateY(-50%);
   padding: 10pt;
   border-radius: 5px;
   border: none;
 }
-.categoryButton{
+.categoryButton {
   left: 65%;
   font-weight: lighter;
   background: #ddd;
-}.categoryButton:hover{background:#ccc;}
+}
+.categoryButton:hover {
+  background: #ccc;
+}
 
-.addButton{
+.addButton {
   left: 85%;
   font-weight: 700;
   background: #8c8;
-}.addButton:hover{background: #7b7;}
-.addButton:disabled{
+}
+.addButton:hover {
+  background: #7b7;
+}
+.addButton:disabled {
   cursor: no-drop;
 }
 
@@ -107,9 +124,13 @@ button{
   overflow-y: scroll;
 }
 
-.plsAddTasks{
-  font: 600 20pt sans-serif;
+.plsAddTasks {
+  position: absolute;
+  font: 600 20pt Roboto;
   color: #999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
   text-align: center;
 }
 
