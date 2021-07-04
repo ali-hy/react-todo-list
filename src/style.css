@@ -73,6 +73,7 @@ button{
   top: 50%; transform: translateY(-50%);
   font-size: 12pt; padding: 5pt; padding-bottom: 0;
   border:none; border-bottom: 1px solid#ccc;
+  width: 40%; margin-left: 3.5%;
 }
 .textBox:focus{
   border: none; border-bottom: 1px solid#999;
@@ -86,7 +87,7 @@ button{
   border: none;
 }
 .categoryButton{
-  left: 60%;
+  left: 65%;
   font-weight: lighter;
   background: #ddd;
 }.categoryButton:hover{background:#ccc;}
@@ -96,11 +97,20 @@ button{
   font-weight: 700;
   background: #8c8;
 }.addButton:hover{background: #7b7;}
+.addButton:disabled{
+  cursor: no-drop;
+}
 
 /*DISPLAY OF TASKS*/
 .taskDisplay {
   height: 377px;
   overflow-y: scroll;
+}
+
+.plsAddTasks{
+  font: 600 20pt sans-serif;
+  color: #999;
+  text-align: center;
 }
 
 /*SCROLLBAR*/

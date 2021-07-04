@@ -83,6 +83,7 @@ class TaskDisplayBox extends React.Component {
   }
   
   render() {
+    let message = <h2 className='plsAddTasks'>Use "ADD" Button to add a task </h2>;
     let res = [];
     for (let i = 0; i < this.state.titles.length; i++) {
       res.push(this.renderTask(i));
@@ -90,7 +91,7 @@ class TaskDisplayBox extends React.Component {
     return <div><TaskAdder 
     add = {()=>this.addTask()}
     categories={this.state.categories}/> 
-    <div className="taskDisplay box">{res}</div></div>;
+    <div className="taskDisplay box">{this.state.titles.length > 0? res : message}</div></div>;
   }
 }
 
