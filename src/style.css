@@ -98,7 +98,7 @@ button {
   border: none;
 }
 .categoryButton {
-  left: 65%;
+  left: 60%;
   font-weight: lighter;
   background: #ddd;
 }
@@ -116,6 +116,25 @@ button {
 }
 .addButton:disabled {
   cursor: no-drop;
+}
+
+/*DISPLAY OPTIONS*/
+.displayofoptions{
+  padding: 20pt;
+  position: relative;
+  width: 85%;
+  min-width: 500px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.showcompleted{
+  position: absolute;
+  left: 75%;
+  top: 50%; transform: translateY(-50%);
+}
+.showcompletedl{
+  font: 11.5pt Roboto;
 }
 
 /*DISPLAY OF TASKS*/
