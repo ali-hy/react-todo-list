@@ -32,7 +32,7 @@ class DisplayOptions extends React.Component{
         <div className = "showcompleted">
           <input type = "checkbox" id="showcompletedcb" name="showcompletedcb"
           onClick={() => this.props.onClick()} /> 
-          <label className = "showcompletedl" for="showcompletedcb">Show Completed</label>
+          <label className = "showcompletedl" htmlFor="showcompletedcb">Show Completed</label>
         </div>
       </div>
     );
@@ -91,9 +91,6 @@ class TodoApp extends React.Component {
       remaining: 0,
       categories: ['Uncategorized', 'Work'],
       tasks: [],
-      titles: [],
-      completion: [],
-      category: [],
       displayedCategory: 0,
       showCompleted: false,
     };
@@ -111,12 +108,16 @@ class TodoApp extends React.Component {
       completion: this.state.completion.concat(false),
       category: this.state.category.concat(catOfNew)
     });
-    console.log(this.state.tasks[this.state.tasks.length-1])
+    console.log(this.state.tasks[this.state.tasks.length-1]);
     document.getElementById('textInput').value = '';
   }
   checkUncheck(i) {
+    console.log("was " + i.complete);
     i.complete = !i.complete;
-    console.log(i.complete);
+    this.setState({
+      remaining: this.state.remaining + (i.complete ? -1 : 1),
+    })
+    console.log("now is " + i.complete);
   }
   renderTask(i) {
     let indexOfi = this.state.tasks.indexOf(i,0);
@@ -168,5 +169,5 @@ function Title(props) {
 }
 
 export default function App() {
-  return <TodoApp />;
+  return <TodoApp id = "todoapp"/>;
 }
