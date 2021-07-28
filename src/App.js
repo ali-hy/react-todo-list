@@ -93,6 +93,7 @@ class TodoApp extends React.Component {
       tasks: [],
       displayedCategory: 0,
       showCompleted: false,
+      firstTask: true,
     };
   }
   addTask(catOfNew) {
@@ -104,9 +105,6 @@ class TodoApp extends React.Component {
         complete: false,
         category: catOfNew}),
       remaining: this.state.remaining + 1,
-      titles: this.state.titles.concat(titleNew),
-      completion: this.state.completion.concat(false),
-      category: this.state.category.concat(catOfNew)
     });
     console.log(this.state.tasks[this.state.tasks.length-1]);
     document.getElementById('textInput').value = '';
@@ -119,10 +117,9 @@ class TodoApp extends React.Component {
     })
     console.log("now is " + i.complete);
   }
-  renderTask(i) {
-    let indexOfi = this.state.tasks.indexOf(i,0);
-    let style = indexOfi > 0 ? {} : { marginTop: '4px' };
-    let divStyle = indexOfi > 0 ? {} : { border: 'none' };
+  renderTask(i, border) {
+    let style = border > 0 ? {} : { marginTop: '4px' };
+    let divStyle = border > 0 ? {} : { border: 'none' };
     let textDecoration = i.complete
       ? { textDecoration: 'line-through' }
       : {};
@@ -143,7 +140,7 @@ class TodoApp extends React.Component {
       <h2 className="plsAddTasks">Use "ADD" Button to add a task </h2>
     );
     let res = [];
-    for (let i = 0; i < this.state.titles.length; i++) {
+    for (let i = 0; i < this.state.tasks.length; i++) {
       res.push(this.renderTask(i));
     }
     return (
@@ -154,10 +151,15 @@ class TodoApp extends React.Component {
           categories={this.state.categories}
         />
         <DisplayOptions
-        onClick={()=>this.setState({showCompleted: !this.state.showCompleted})}/>
-        <div className="taskDisplay box">
-          {this.state.titles.length > 0 ? 
-          this.state.tasks.map(task=> this.state.showCompleted || !task.complete? this.renderTask(task) : null) : message}
+        onClick={()=>this.setState({showCompleted: !this.state.showCompleted, firstTask: true,})}/>
+        <div className="taskDisplay box"> 
+          {this.state.tasks.length > 0 
+          ? this.state.tasks.map(task=> 
+            {if(this.state.showCompleted || !task.complete){
+              if(this.state.firstTask)this.setState({firstTask: false,}); 
+              return(this.renderTask(task, !this.state.firstTask));}
+            else{return (null);}})
+          : message}
         </div>
       </div>
     );

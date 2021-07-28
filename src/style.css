@@ -33,7 +33,7 @@ button {
 
 /*Title*/
 .Title {
-  margin: 30px auto;
+  margin: 30pt auto 30px auto;
   text-align: center;
   font-weight: 900;
 }
