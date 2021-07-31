@@ -6,13 +6,20 @@ p {
 
 body,
 html {
+  position: relative;
   user-select: none;
   height: 100%;
   margin: 0;
-  max-height: 700px;
 }
 body {
   background: rgb(240, 240, 240);
+}
+.all {
+  position: absolute;
+  width: 85%;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 button {
@@ -27,7 +34,7 @@ button {
   position: relative;
   width: 85%;
   min-width: 500px;
-  max-width: 600px;
+  max-width: 900px;
   margin: auto;
 }
 
@@ -98,8 +105,10 @@ button {
   border: none;
 }
 .categoryButton {
-  left: 60%;
+  left: 62%;
   font-weight: lighter;
+  width: 17%;
+  min-width: 110px;
   background: #ddd;
 }
 .categoryButton:hover {
@@ -107,7 +116,9 @@ button {
 }
 
 .addButton {
-  left: 85%;
+  left: 83%;
+  width: 11%;
+  min-width: 70px;
   font-weight: 700;
   background: #8c8;
 }
@@ -119,21 +130,26 @@ button {
 }
 
 /*DISPLAY OPTIONS*/
-.displayofoptions{
+.displayofoptions {
   padding: 20pt;
   position: relative;
   width: 85%;
   min-width: 500px;
-  max-width: 600px;
+  max-width: 900px;
   margin: auto;
 }
 
-.showcompleted{
-  position: absolute;
-  left: 75%;
-  top: 50%; transform: translateY(-50%);
+.chosencategory {
+  border-radius: 20px;
 }
-.showcompletedl{
+
+.showcompleted {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.showcompletedl {
   font: 11.5pt Roboto;
 }
 

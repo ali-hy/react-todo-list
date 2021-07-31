@@ -89,7 +89,7 @@ class TodoApp extends React.Component {
     super(props);
     this.state = {
       remaining: 0,
-      categories: ['Uncategorized', 'Work'],
+      categories: ['Uncategorized', 'Work', 'Groceries', 'Chores'],
       tasks: [],
       displayedCategory: 0,
       showCompleted: false,
@@ -118,8 +118,8 @@ class TodoApp extends React.Component {
     console.log("now is " + i.complete);
   }
   renderTask(i, border) {
-    let style = border > 0 ? {} : { marginTop: '4px' };
-    let divStyle = border > 0 ? {} : { border: 'none' };
+    let style = border ? {} : { marginTop: '4px' };
+    let divStyle = border ? {} : { border: 'none' };
     let textDecoration = i.complete
       ? { textDecoration: 'line-through' }
       : {};
@@ -136,6 +136,7 @@ class TodoApp extends React.Component {
   }
 
   render() {
+    let firstTask = true;
     let message = (
       <h2 className="plsAddTasks">Use "ADD" Button to add a task </h2>
     );
@@ -144,7 +145,7 @@ class TodoApp extends React.Component {
       res.push(this.renderTask(i));
     }
     return (
-      <div>
+      <div className="all">
         <Title remaining={this.state.remaining} />
         <TaskAdder
           add={() => this.addTask()}
@@ -154,11 +155,7 @@ class TodoApp extends React.Component {
         onClick={()=>this.setState({showCompleted: !this.state.showCompleted, firstTask: true,})}/>
         <div className="taskDisplay box"> 
           {this.state.tasks.length > 0 
-          ? this.state.tasks.map(task=> 
-            {if(this.state.showCompleted || !task.complete){
-              if(this.state.firstTask)this.setState({firstTask: false,}); 
-              return(this.renderTask(task, !this.state.firstTask));}
-            else{return (null);}})
+        ? this.state.tasks.filter(task => this.state.showCompleted || !task.complete).map((task, i) => this.renderTask(task, i > 0))
           : message}
         </div>
       </div>
