@@ -77,7 +77,7 @@ class TaskAdder extends React.Component {
           ADD
         </button>
         <button className="categoryButton">
-          {this.props.categories[this.state.currentCategory]}
+          {this.props.categories[this.state.currentCategory] + "▼"}
         </button>
       </div>
     );
