@@ -106,14 +106,22 @@ button {
 }
 .categoryButton {
   left: 55%;
-  text-align: center;
+  text-align: left;
   font-weight: lighter;
   width: 23%;
   min-width: 110px;
   background: #ddd;
 }
-.categoryButton:hover {
+.categoryButton:hover, .categoryButton:focus {
   background: #ccc;
+}
+
+
+
+.arrowdown{
+  transform: translate(0%, -80%);
+  float:right;
+  display: inline;
 }
 
 .addButton {
@@ -138,6 +146,10 @@ button {
   min-width: 500px;
   max-width: 900px;
   margin: auto;
+}
+
+.categoriestodisplay{
+  background: #777;
 }
 
 .chosencategory {
