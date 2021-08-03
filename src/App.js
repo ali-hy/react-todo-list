@@ -2,6 +2,12 @@ import React from 'react';
 import './style.css';
 
 function Task(props) {
+  // Props:
+  //  onClick -> check box function
+  //  style -> margin style for check box (different for first button)
+  //  cont -> the check mark
+  //  textDecoration -> line through text after completion
+  //  tasktitle -> title of the task
   return (
     <div className="task" style={props.divStyle}>
       <button
@@ -23,6 +29,7 @@ class DisplayOptions extends React.Component {
   //  onChoice -> when clicking category in banner
   //  onClick -> action on click of "show complete"
   //  categories -> array of all the avaailable categories
+  //  displayedCategory -> currently displayed category
   render() {
     return (
       <div className="displayofoptions">
@@ -31,8 +38,12 @@ class DisplayOptions extends React.Component {
             onClick={() => {
               this.props.onChoice(i);
             }}
+            className={
+              'categories' +
+              (this.props.displayedCategory == i ? ' chosen-category' : '')
+            }
           >
-            {title}
+            {i > 0 ? title : 'All'}
           </button>
         ))}
         <div className="showcompleted">
@@ -51,7 +62,13 @@ class DisplayOptions extends React.Component {
   }
 }
 
+function drop() {
+  document.getElementById("category-picker").classList.toggle("show");
+}
+
 class TaskAdder extends React.Component {
+  // Props:
+  //  categories -> array of all categories
   constructor(props) {
     super(props);
     this.state = {
@@ -59,11 +76,6 @@ class TaskAdder extends React.Component {
       disable: true,
       value: ''
     };
-    this.addbuttonRef = React.createRef();
-  }
-  getHeight() {
-    let addbuttonHeight = this.addbuttonRef.current.style.height;
-    console.log(addbuttonHeight);
   }
   render() {
     return (
@@ -94,9 +106,23 @@ class TaskAdder extends React.Component {
         >
           ADD
         </button>
-        <button className="categoryButton">
-          {this.props.categories[this.state.currentCategory]}
-        </button>
+        
+        <div className = "dropdown">
+          <button className="categoryButton" id = "category-btn" onClick = {() => drop()}>
+            {this.props.categories[this.state.currentCategory]}
+          </button>
+          <div className="category-picker" id = "category-picker">
+            {this.props.categories
+              .filter((cat, i) => i != this.state.currentCategory)
+              .map((category, i) => {
+                return (
+                  <li className="category-li">
+                    <button className="category-pick" onClick = {() => this.setState({currentCategory: i})}>{category}</button>
+                  </li>
+                );
+              })}
+          </div>
+        </div>
       </div>
     );
   }
@@ -155,10 +181,13 @@ class TodoApp extends React.Component {
     let message = (
       <h2 className="plsAddTasks">Use "ADD" Button to add a task </h2>
     );
-    let res = [];
-    for (let i = 0; i < this.state.tasks.length; i++) {
-      res.push(this.renderTask(i));
-    }
+    let filtered = this.state.tasks
+    .filter(
+      task =>
+        (this.state.showCompleted || !task.complete) &&
+        (this.state.displayedCategory == 0 ||
+          this.state.displayedCategory == task.category)
+    );
     return (
       <div className="all">
         <Title remaining={this.state.remaining} />
@@ -172,22 +201,15 @@ class TodoApp extends React.Component {
           }}
           onClick={() =>
             this.setState({
-              showCompleted: !this.state.showCompleted,
-              firstTask: true
+              showCompleted: !this.state.showCompleted
             })
           }
           categories={this.state.categories}
+          displayedCategory={this.state.displayedCategory}
         />
         <div className="taskDisplay box">
-          {this.state.tasks.length > 0
-            ? this.state.tasks
-                .filter(
-                  task =>
-                    (this.state.showCompleted || !task.complete) &&
-                    (this.state.displayedCategory == 0 ||
-                      this.state.displayedCategory == task.category)
-                )
-                .map((task, i) => this.renderTask(task, i > 0))
+          {filtered.length > 0
+            ? filtered.map((task, i) => this.renderTask(task, i > 0))
             : message}
         </div>
       </div>

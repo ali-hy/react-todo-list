@@ -28,10 +28,11 @@ button {
 
 .box {
   background: white;
-  filter: drop-shadow(0 0 5px #ddd);
   padding: 20pt;
   border-radius: 10px;
   position: relative;
+  z-index: 999;
+  box-shadow: 0 0 3px rgba(0,0,0, 0.1333);
   width: 85%;
   min-width: 500px;
   max-width: 900px;
@@ -116,12 +117,37 @@ button {
   background: #ccc;
 }
 
+.category-picker{
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  left: 55%;
+  top: 70%;
+  width: 23%;
+  box-shadow: 0 0 5px 1px rgba(0,0,0,0.2);
+}
 
+.category-picker li{
+  display: block;
+  width: 100%;
+}
+
+.category-picker button{
+  width: 100%;
+  padding: 6pt 0;
+  border: none;
+}
+.category-picker button:hover{
+  background: #ccc;
+}
+.dropdown:focus .category-picker{
+  display: inline;
+}
+
+.show{display: block;}
 
 .arrowdown{
-  transform: translate(0%, -80%);
-  float:right;
-  display: inline;
+  
 }
 
 .addButton {
@@ -146,14 +172,25 @@ button {
   min-width: 500px;
   max-width: 900px;
   margin: auto;
+  margin-bottom: -5pt;
 }
 
-.categoriestodisplay{
-  background: #777;
+.categories{
+  position: relative;
+  background: #888;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 1px;
+  margin-bottom: -50pt;
 }
 
-.chosencategory {
-  border-radius: 20px;
+.chosen-category {
+  background: white;
+  color: black;
+  box-shadow: 0 0 3px rgba(0,0,0, 0.1333);
+  z-index: -1;
 }
 
 .showcompleted {
@@ -170,6 +207,8 @@ button {
 .taskDisplay {
   height: 377px;
   overflow-y: scroll;
+  margin-top: -20px;
+  z-index: 999; 
 }
 
 .plsAddTasks {
