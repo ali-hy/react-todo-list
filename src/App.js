@@ -30,6 +30,7 @@ class DisplayOptions extends React.Component {
   //  onClick -> action on click of "show complete"
   //  categories -> array of all the avaailable categories
   //  displayedCategory -> currently displayed category
+  //  showCompleted -> showCompleted from App
   render() {
     return (
       <div className="displayofoptions">
@@ -51,6 +52,7 @@ class DisplayOptions extends React.Component {
             type="checkbox"
             id="showcompletedcb"
             name="showcompletedcb"
+            checked= {this.props.showCompleted}
             onClick={() => this.props.onClick()}
           />
           <label className="showcompletedl" htmlFor="showcompletedcb">
@@ -199,6 +201,7 @@ class TodoApp extends React.Component {
           categories={this.state.categories}
         />
         <DisplayOptions
+          showCompleted = {this.state.showCompleted}
           onChoice={x => {
             this.setState({ displayedCategory: x });
           }}
