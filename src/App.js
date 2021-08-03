@@ -117,7 +117,8 @@ class TaskAdder extends React.Component {
               .map((category, i) => {
                 return (
                   <li className="category-li">
-                    <button className="category-pick" onClick = {() => this.setState({currentCategory: i})}>{category}</button>
+                    <button className="category-pick" onClick = {() => 
+                      this.setState({currentCategory: (i + (i >= this.state.currentCategory ? 1 : 0))})}>{category}</button>
                   </li>
                 );
               })}
@@ -136,7 +137,7 @@ class TodoApp extends React.Component {
       categories: ['Uncategorized', 'Work', 'Groceries', 'Chores'],
       tasks: [],
       displayedCategory: 0,
-      showCompleted: false
+      showCompleted: true
     };
   }
   addTask(catOfNew) {
@@ -152,6 +153,8 @@ class TodoApp extends React.Component {
     });
     console.log(this.state.tasks[this.state.tasks.length - 1]);
     document.getElementById('textInput').value = '';
+    if(this.state.displayedCategory != 0 && catOfNew != this.state.displayedCategory)
+      this.setState({displayedCategory: catOfNew});
   }
   checkUncheck(i) {
     console.log('was ' + i.complete);
@@ -179,7 +182,7 @@ class TodoApp extends React.Component {
 
   render() {
     let message = (
-      <h2 className="plsAddTasks">Use "ADD" Button to add a task </h2>
+      <h2 className="plsAddTasks">Type task title in textbox above then use "ADD" Button to add a task </h2>
     );
     let filtered = this.state.tasks
     .filter(
@@ -192,7 +195,7 @@ class TodoApp extends React.Component {
       <div className="all">
         <Title remaining={this.state.remaining} />
         <TaskAdder
-          add={() => this.addTask()}
+          add={(x) => this.addTask(x)}
           categories={this.state.categories}
         />
         <DisplayOptions
