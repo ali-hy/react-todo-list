@@ -1,10 +1,15 @@
 <div id="root"></div>
 <script>
-  var titleInput = document.getElementById("textInput");
-  titleInput.addEventListener("keyup", function(event){
-    if (event.keyCode === 13) {
-    event.preventDefault();
-    document.getElementById("addButton").click();
+  window.onclick = function(event) {
+    if (!event.target.matches('.categoryButton')) {
+      var dropdowns = document.getElementsByClassName("category-picker");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
     }
-  });
+  }
 </script>
