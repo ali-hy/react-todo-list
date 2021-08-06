@@ -8,18 +8,26 @@ function Task(props) {
   //  cont -> the check mark
   //  textDecoration -> line through text after completion
   //  tasktitle -> title of the task
+  //  delete -> function carried out by delete button
+  //  number -> key, but not called key, because of complications with deleting the property
   return (
     <div className="task" style={props.divStyle}>
-      <button
-        className="checkBox"
-        onClick={() => props.onClick()}
-        style={props.style}
-      >
-        <p>{props.cont}</p>
-      </button>
-      <p className="taskTitle" style={props.textDecoration}>
-        {props.taskTitle}
-      </p>
+      <span className="task-cb-title">
+        <button
+          className="checkBox"
+          onClick={() => props.onClick()}
+          style={props.style}
+        >
+          <p>{props.cont}</p>
+        </button>
+        <p className="taskTitle" style={props.textDecoration}>
+          {props.taskTitle}
+        </p>
+      </span>
+      <button 
+        className = "delete-btn"
+        onClick = {() => props.delete(props.number)}
+      >x</button>
     </div>
   );
 }
@@ -53,7 +61,7 @@ class DisplayOptions extends React.Component {
             id="showcompletedcb"
             name="showcompletedcb"
             checked= {this.props.showCompleted}
-            onClick={() => this.props.onClick()}
+            onChange={() => this.props.onClick()}
           />
           <label className="showcompletedl" htmlFor="showcompletedcb">
             Show Completed
@@ -135,48 +143,62 @@ class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      remaining: 0,
-      categories: ['Uncategorized', 'Work', 'Groceries', 'Chores'],
+      categories: ['No Category', 'Work', 'Groceries', 'Chores'],
       tasks: [],
       displayedCategory: 0,
       showCompleted: true
     };
+    if(localStorage.length > 4) {
+      let inp = JSON.parse(localStorage.getItem("tasks")); //input
+      this.setState({tasks: inp }, console.log(this.state.tasks)); console.log(inp);}
+    else  {
+      fetch("https://60d8582ca376360017f45fe2.mockapi.io/todos", {
+            method: 'GET',
+            headers: {
+              'Content-Type' : 'application/json'
+            }
+          }).then(response => response.json()).then(data => this.setState({tasks: [...data]}));
+        }
   }
   addTask(catOfNew) {
     let titleNew = document.getElementById('textInput').value.trim();
     if (titleNew == '') return;
-    this.setState({
-      tasks: this.state.tasks.concat({
-        title: titleNew,
-        complete: false,
-        category: catOfNew
-      }),
-      remaining: this.state.remaining + 1
+    let currentTasks = this.state.tasks.slice().concat({
+      creationDate: new Date(),
+      title: titleNew,
+      completed: false,
+      category: catOfNew
     });
-    console.log(this.state.tasks[this.state.tasks.length - 1]);
+    this.setState({
+      tasks: currentTasks
+    });
     document.getElementById('textInput').value = '';
     if(this.state.displayedCategory != 0 && catOfNew != this.state.displayedCategory)
       this.setState({displayedCategory: catOfNew});
+    localStorage.setItem("tasks", JSON.stringify(currentTasks));
   }
   checkUncheck(i) {
-    console.log('was ' + i.complete);
-    i.complete = !i.complete;
-    this.setState({
-      remaining: this.state.remaining + (i.complete ? -1 : 1)
-    });
-    console.log('now is ' + i.complete);
+    console.log('was ' + i.completed);
+    i.completed = !i.completed;
+    console.log('now is ' + i.completed);
   }
-  renderTask(i, border) {
-    let style = border ? {} : { marginTop: '4px' };
+  renderTask(task, border) {
     let divStyle = border ? {} : { border: 'none' };
-    let textDecoration = i.complete ? { textDecoration: 'line-through' } : {};
+    let textDecoration = task.completed ? { textDecoration: 'line-through' } : {};
     return (
       <Task
-        taskTitle={i.title}
+        number = {task.number}
+        taskTitle={task.title}
         divStyle={divStyle}
-        style={style}
-        onClick={() => this.checkUncheck(i)}
-        cont={i.complete ? '✔' : ''}
+        onClick={() => this.checkUncheck(task)}
+        cont={task.completed ? '✔' : ''}
+        delete ={(x)=>{
+          let copy = this.state.tasks.slice();
+          copy.splice(x,1);
+          this.setState({
+            tasks: copy,
+          });
+        }}
         textDecoration={textDecoration}
       />
     );
@@ -186,16 +208,20 @@ class TodoApp extends React.Component {
     let message = (
       <h2 className="plsAddTasks">Type task title in textbox above then use "ADD" Button to add a task </h2>
     );
-    let filtered = this.state.tasks
-    .filter(
+    let filtered = this.state.tasks.map(
+      (task,i) => {
+        task.number = i;
+        return task;
+      }
+    ).filter(
       task =>
-        (this.state.showCompleted || !task.complete) &&
+        (this.state.showCompleted || !task.completed) &&
         (this.state.displayedCategory == 0 ||
           this.state.displayedCategory == task.category)
     );
     return (
       <div className="all">
-        <Title remaining={this.state.remaining} />
+        <Title tasks={this.state.tasks} />
         <TaskAdder
           add={(x) => this.addTask(x)}
           categories={this.state.categories}
@@ -224,7 +250,7 @@ class TodoApp extends React.Component {
 }
 
 function Title(props) {
-  return <h1 className="Title">Your Todos ({props.remaining} Remaining)</h1>;
+  return <h1 className="Title">Your Todos ( Remaining {props.tasks.filter(task => !task.completed).length} )</h1>;
 }
 
 export default function App() {
