@@ -152,9 +152,9 @@ class TodoApp extends React.Component {
     this.updatedTasks = [];
   }
   componentDidMount() {
-    if(localStorage.length > 4) {
+    if(localStorage.length > 3) {
       let inp = JSON.parse(localStorage.getItem("tasks")); //input
-      this.setState({tasks: inp.slice() }); this.setState({tasks: inp});console.log(inp);}
+      this.setState({tasks: inp.slice() }); this.setState({tasks: inp});}
     else  {
       fetch("https://60d8582ca376360017f45fe2.mockapi.io/todos", {
         method: 'GET',
@@ -210,6 +210,7 @@ class TodoApp extends React.Component {
           this.setState({
             tasks: copy,
           });
+          localStorage.setItem('tasks', JSON.stringify(copy));
         }}
         textDecoration={textDecoration}
       />
