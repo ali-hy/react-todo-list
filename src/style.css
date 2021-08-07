@@ -162,10 +162,6 @@ body {
 
 .show{display: block;}
 
-.arrow-down{
-  font: 13pt bolder helvetica;
-}
-
 .addButton {
   left: 83%;
   width: 11%;
@@ -193,8 +189,8 @@ body {
 
 .categories{
   position: relative;
-  background: #888;
-  color: white;
+  background: rgb(240, 240, 240);
+  color: black;
   border: none;
   border-radius: 15px;
   padding: 20px;
