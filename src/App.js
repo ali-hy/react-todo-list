@@ -95,6 +95,7 @@ class TaskAdder extends React.Component {
           className="textBox"
           id="textInput"
           onChange={e => this.setState({ value: e.target.value })}
+          autocomplete="off"
           onKeyUp={e => {
             if (e.keyCode == 13) {
               e.preventDefault();
@@ -148,22 +149,30 @@ class TodoApp extends React.Component {
       displayedCategory: 0,
       showCompleted: true
     };
+    this.updatedTasks = [];
+  }
+  componentDidMount() {
     if(localStorage.length > 4) {
       let inp = JSON.parse(localStorage.getItem("tasks")); //input
-      this.setState({tasks: inp }, console.log(this.state.tasks)); console.log(inp);}
+      this.setState({tasks: inp.slice() }); this.setState({tasks: inp});console.log(inp);}
     else  {
       fetch("https://60d8582ca376360017f45fe2.mockapi.io/todos", {
-            method: 'GET',
-            headers: {
-              'Content-Type' : 'application/json'
-            }
-          }).then(response => response.json()).then(data => this.setState({tasks: [...data]}));
+        method: 'GET',
+        headers: {
+          'Content-Type' : 'application/json'
         }
+      }).then(response => response.json()).then(data => this.setState({tasks: [...data]}));
+    }
+    
+  }
+  componentWillUnmount(){
+    this.updateStorage();
   }
   addTask(catOfNew) {
     let titleNew = document.getElementById('textInput').value.trim();
     if (titleNew == '') return;
     let currentTasks = this.state.tasks.slice().concat({
+      id: this.state.tasks.length,
       creationDate: new Date(),
       title: titleNew,
       completed: false,
@@ -172,22 +181,25 @@ class TodoApp extends React.Component {
     this.setState({
       tasks: currentTasks
     });
+    localStorage.setItem('tasks', JSON.stringify(currentTasks));
     document.getElementById('textInput').value = '';
     if(this.state.displayedCategory != 0 && catOfNew != this.state.displayedCategory)
       this.setState({displayedCategory: catOfNew});
-    localStorage.setItem("tasks", JSON.stringify(currentTasks));
+  }
+  updateStorage(){
+    localStorage.setItem('tasks', JSON.stringify(this.state.tasks));
   }
   checkUncheck(i) {
-    console.log('was ' + i.completed);
     i.completed = !i.completed;
-    console.log('now is ' + i.completed);
+    this.forceUpdate();
+    this.updateStorage();
   }
   renderTask(task, border) {
     let divStyle = border ? {} : { border: 'none' };
     let textDecoration = task.completed ? { textDecoration: 'line-through' } : {};
     return (
       <Task
-        number = {task.number}
+        number = {task.id}
         taskTitle={task.title}
         divStyle={divStyle}
         onClick={() => this.checkUncheck(task)}
@@ -206,11 +218,11 @@ class TodoApp extends React.Component {
 
   render() {
     let message = (
-      <h2 className="plsAddTasks">Type task title in textbox above then use "ADD" Button to add a task </h2>
+      <h2 className="plsAddTasks">Type a todo in textbox above then use "ADD" Button to add a task </h2>
     );
     let filtered = this.state.tasks.map(
       (task,i) => {
-        task.number = i;
+        task.id = i;
         return task;
       }
     ).filter(
@@ -223,7 +235,7 @@ class TodoApp extends React.Component {
       <div className="all">
         <Title tasks={this.state.tasks} />
         <TaskAdder
-          add={(x) => this.addTask(x)}
+          add={(x) => {this.addTask(x); console.log()}}
           categories={this.state.categories}
         />
         <DisplayOptions
