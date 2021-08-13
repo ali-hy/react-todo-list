@@ -27,7 +27,6 @@ body {
   padding: 20pt;
   border-radius: 10px;
   position: relative;
-  z-index: 999;
   box-shadow: 0 3px 3px rgba(0,0,0, 0.1333);
   width: 85%;
   min-width: 500px;
@@ -90,7 +89,7 @@ body {
 /*TASK ADDER*/
 .taskAdder {
   height: 30pt;
-  margin-bottom: 10pt;
+  margin-bottom: 10px;
 }
 .textBox {
   position: absolute;
@@ -184,7 +183,19 @@ body {
   min-width: 500px;
   max-width: 900px;
   margin: auto;
-  margin-bottom: -5pt;
+  margin-bottom: 10px;
+}
+
+.cat-box{
+  position: fixed;
+  height: 80%;
+  left: 1%;
+  width: 50px;
+}
+
+.cat-box ul{
+  position: absolute;
+  left: 1%;
 }
 
 .categories{
@@ -193,9 +204,12 @@ body {
   color: black;
   border: none;
   border-radius: 15px;
-  padding: 20px;
+  padding: 7px 15px;
   margin: 1px;
-  margin-bottom: -50pt;
+}
+.cat-li{
+  list-style: none;
+  display: block;
 }
 
 .chosen-category {

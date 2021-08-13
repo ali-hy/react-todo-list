@@ -34,27 +34,12 @@ function Task(props) {
 
 class DisplayOptions extends React.Component {
   //Props:
-  //  onChoice -> when clicking category in banner
   //  onClick -> action on click of "show complete"
-  //  categories -> array of all the avaailable categories
-  //  displayedCategory -> currently displayed category
   //  showCompleted -> showCompleted from App
   render() {
     return (
       <div className="displayofoptions">
-        {this.props.categories.map((title, i) => (
-          <button
-            onClick={() => {
-              this.props.onChoice(i);
-            }}
-            className={
-              'categories' +
-              (this.props.displayedCategory == i ? ' chosen-category' : '')
-            }
-          >
-            {i > 0 ? title : 'All'}
-          </button>
-        ))}
+        
         <div className="showcompleted">
           <input
             type="checkbox"
@@ -70,6 +55,35 @@ class DisplayOptions extends React.Component {
       </div>
     );
   }
+}
+
+class CategoryPicker extends React.Component {
+  //Props:
+  //  onChoice -> when clicking category in banner
+  //  categories -> array of all the avaailable categories
+  //  displayedCategory -> currently displayed category
+  render(){
+    return (
+      <div className = "cat-box">
+        <ul>
+          {this.props.categories.map((title, i) => (
+            <li className="cat-li"> <button
+              onClick={() => {
+                this.props.onChoice(i);
+              }}
+              className={
+                'categories' +
+                (this.props.displayedCategory == i ? ' chosen-category' : '')
+              }
+            >
+              {i > 0 ? title : 'All'}
+            </button> </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+
 }
 
 function drop() {
@@ -234,23 +248,25 @@ class TodoApp extends React.Component {
     );
     return (
       <div className="all">
-        <Title tasks={this.state.tasks} />
+        <h1 className="Title">Your Todos ( Remaining {this.state.tasks.filter(task => !task.completed).length} )</h1>
         <TaskAdder
           add={(x) => {this.addTask(x); console.log()}}
           categories={this.state.categories}
         />
-        <DisplayOptions
-          showCompleted = {this.state.showCompleted}
+        <CategoryPicker
           onChoice={x => {
             this.setState({ displayedCategory: x });
           }}
+          categories={this.state.categories}
+          displayedCategory={this.state.displayedCategory}
+        />
+        <DisplayOptions
+          showCompleted = {this.state.showCompleted}
           onClick={() =>
             this.setState({
               showCompleted: !this.state.showCompleted
             })
           }
-          categories={this.state.categories}
-          displayedCategory={this.state.displayedCategory}
         />
         <div className="taskDisplay box">
           {filtered.length > 0
@@ -260,10 +276,6 @@ class TodoApp extends React.Component {
       </div>
     );
   }
-}
-
-function Title(props) {
-  return <h1 className="Title">Your Todos ( Remaining {props.tasks.filter(task => !task.completed).length} )</h1>;
 }
 
 export default function App() {
