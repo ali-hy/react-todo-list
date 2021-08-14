@@ -24,10 +24,9 @@ function Task(props) {
           {props.taskTitle}
         </p>
       </span>
-      <button 
-        className = "delete-btn"
-        onClick = {() => props.delete(props.number)}
-      >x</button>
+      <button className="delete-btn" onClick={() => props.delete(props.number)}>
+        x
+      </button>
     </div>
   );
 }
@@ -39,14 +38,14 @@ class DisplayOptions extends React.Component {
   render() {
     return (
       <div className="displayofoptions">
-        
         <div className="showcompleted">
           <input
             type="checkbox"
             id="showcompletedcb"
             name="showcompletedcb"
-            checked= {this.props.showCompleted}
+            checked={this.props.showCompleted}
             onChange={() => this.props.onClick()}
+            placeholder={'Enter task here'}
           />
           <label className="showcompletedl" htmlFor="showcompletedcb">
             Show Completed
@@ -62,46 +61,61 @@ class CategoryPicker extends React.Component {
   //  onChoice -> when clicking category in banner
   //  categories -> array of all the avaailable categories
   //  displayedCategory -> currently displayed category
-  render(){
+  render() {
     return (
-      <div className = "cat-box">
+      <div className="cat-box">
+        <h2> Categories </h2>
         <ul>
           {this.props.categories.map((title, i) => (
-            <li className="cat-li"> <button
-              onClick={() => {
-                this.props.onChoice(i);
-              }}
-              className={
-                'categories' +
-                (this.props.displayedCategory == i ? ' chosen-category' : '')
-              }
-            >
-              {i > 0 ? title : 'All'}
-            </button> </li>
+            <li className="cat-li">
+              {' '}
+              <button
+                onClick={() => {
+                  this.props.onChoice(i);
+                }}
+                className={
+                  'categories' +
+                  (this.props.displayedCategory == i ? ' chosen-category' : '')
+                }
+              >
+                {i > 0 ? title : 'All'}
+              </button>{' '}
+            </li>
           ))}
         </ul>
       </div>
     );
   }
-
 }
 
 function drop() {
-  document.getElementById("category-picker").classList.toggle("show");
+  document.getElementById('category-picker').classList.toggle('show');
 }
 
 class TaskAdder extends React.Component {
   // Props:
   //  categories -> array of all categories
+  //  displayedCategory -> currently displayed category
   constructor(props) {
     super(props);
     this.state = {
       currentCategory: 0,
       disable: true,
+      disableCat: false,
       value: ''
     };
   }
   render() {
+    if (
+      this.state.currentCategory != this.props.displayedCategory &&
+      this.props.displayedCategory != 0
+    ) {
+      this.setState({
+        currentCategory: this.props.displayedCategory,
+        disableCat: true
+      });
+    } else if (this.props.displayedCategory == 0 && this.state.disableCat)
+      this.setState({ disableCat: false });
     return (
       <div className="taskAdder box">
         <input
@@ -120,7 +134,6 @@ class TaskAdder extends React.Component {
         <button
           className="addButton"
           id="addButton"
-          ref={this.addbuttonRef}
           onClick={() => {
             this.props.add(this.state.currentCategory);
             this.setState({
@@ -131,19 +144,33 @@ class TaskAdder extends React.Component {
         >
           ADD
         </button>
-        
-        <div className = "dropdown">
-          <button className="categoryButton" id = "category-btn" onClick = {() => drop()}>
+
+        <div className="dropdown">
+          <button
+            className="categoryButton"
+            id="category-btn"
+            onClick={() => drop()}
+            disabled={this.state.disableCat}
+          >
             {this.props.categories[this.state.currentCategory]}
           </button>
-          <div className="category-picker" id = "category-picker">
+          <div className="category-picker" id="category-picker">
             {this.props.categories
               .filter((cat, i) => i != this.state.currentCategory)
               .map((category, i) => {
                 return (
                   <li className="category-li">
-                    <button className="category-pick" onClick = {() => 
-                      this.setState({currentCategory: (i + (i >= this.state.currentCategory ? 1 : 0))})}>{category}</button>
+                    <button
+                      className="category-pick"
+                      onClick={() =>
+                        this.setState({
+                          currentCategory:
+                            i + (i >= this.state.currentCategory ? 1 : 0)
+                        })
+                      }
+                    >
+                      {category}
+                    </button>
                   </li>
                 );
               })}
@@ -158,7 +185,7 @@ class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: ['No Category', 'Work', 'Groceries', 'Chores'],
+      categories: ['No Category', 'Work', 'Hobbies', 'Groceries', 'Chores'],
       tasks: [],
       displayedCategory: 0,
       showCompleted: true
@@ -166,20 +193,22 @@ class TodoApp extends React.Component {
     this.updatedTasks = [];
   }
   componentDidMount() {
-    if(localStorage.length > 3) {
-      let inp = JSON.parse(localStorage.getItem("tasks")); //input
-      this.setState({tasks: inp.slice() }); this.setState({tasks: inp});}
-    else  {
-      fetch("https://60d8582ca376360017f45fe2.mockapi.io/todos", {
+    if (localStorage.length > 3) {
+      let inp = JSON.parse(localStorage.getItem('tasks')); //input
+      this.setState({ tasks: inp.slice() });
+      this.setState({ tasks: inp });
+    } else {
+      fetch('https://60d8582ca376360017f45fe2.mockapi.io/todos', {
         method: 'GET',
         headers: {
-          'Content-Type' : 'application/json'
+          'Content-Type': 'application/json'
         }
-      }).then(response => response.json()).then(data => this.setState({tasks: [...data]}));
+      })
+        .then(response => response.json())
+        .then(data => this.setState({ tasks: [...data] }));
     }
-    
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.updateStorage();
   }
   addTask(catOfNew) {
@@ -197,10 +226,13 @@ class TodoApp extends React.Component {
     });
     localStorage.setItem('tasks', JSON.stringify(currentTasks));
     document.getElementById('textInput').value = '';
-    if(this.state.displayedCategory != 0 && catOfNew != this.state.displayedCategory)
-      this.setState({displayedCategory: catOfNew});
+    if (
+      this.state.displayedCategory != 0 &&
+      catOfNew != this.state.displayedCategory
+    )
+      this.setState({ displayedCategory: catOfNew });
   }
-  updateStorage(){
+  updateStorage() {
     localStorage.setItem('tasks', JSON.stringify(this.state.tasks));
   }
   checkUncheck(i) {
@@ -210,19 +242,21 @@ class TodoApp extends React.Component {
   }
   renderTask(task, border) {
     let divStyle = border ? {} : { border: 'none' };
-    let textDecoration = task.completed ? { textDecoration: 'line-through' } : {};
+    let textDecoration = task.completed
+      ? { textDecoration: 'line-through' }
+      : {};
     return (
       <Task
-        number = {task.id}
+        number={task.id}
         taskTitle={task.title}
         divStyle={divStyle}
         onClick={() => this.checkUncheck(task)}
         cont={task.completed ? '✔' : ''}
-        delete ={(x)=>{
+        delete={x => {
           let copy = this.state.tasks.slice();
-          copy.splice(x,1);
+          copy.splice(x, 1);
           this.setState({
-            tasks: copy,
+            tasks: copy
           });
           localStorage.setItem('tasks', JSON.stringify(copy));
         }}
@@ -233,26 +267,50 @@ class TodoApp extends React.Component {
 
   render() {
     let message = (
-      <h2 className="plsAddTasks">Type a todo in textbox above then use "ADD" Button to add a task </h2>
+      <h2 className="plsAddTasks">
+        Type a todo in textbox above <br/> then use "ADD" Button to add a task{' '}
+      </h2>
     );
-    let filtered = this.state.tasks.map(
-      (task,i) => {
+    let filtered = this.state.tasks
+      .map((task, i) => {
         task.id = i;
         return task;
-      }
-    ).filter(
-      task =>
-        (this.state.showCompleted || !task.completed) &&
-        (this.state.displayedCategory == 0 ||
-          this.state.displayedCategory == task.category)
-    );
+      })
+      .filter(
+        task =>
+          (this.state.showCompleted || !task.completed) &&
+          (this.state.displayedCategory == 0 ||
+            this.state.displayedCategory == task.category)
+      );
     return (
       <div className="all">
-        <h1 className="Title">Your Todos ( Remaining {this.state.tasks.filter(task => !task.completed).length} )</h1>
-        <TaskAdder
-          add={(x) => {this.addTask(x); console.log()}}
-          categories={this.state.categories}
-        />
+        <div className="view">
+          <h1 className="Title">
+            Your Todos ( Remaining{' '}
+            {this.state.tasks.filter(task => !task.completed).length} )
+          </h1>
+          <TaskAdder
+            add={x => {
+              this.addTask(x);
+              console.log();
+            }}
+            categories={this.state.categories}
+            displayedCategory={this.state.displayedCategory}
+          />
+          <DisplayOptions
+            showCompleted={this.state.showCompleted}
+            onClick={() =>
+              this.setState({
+                showCompleted: !this.state.showCompleted
+              })
+            }
+          />
+          <div className="taskDisplay box">
+            {filtered.length > 0
+              ? filtered.map((task, i) => this.renderTask(task, i > 0))
+              : message}
+          </div>
+        </div>
         <CategoryPicker
           onChoice={x => {
             this.setState({ displayedCategory: x });
@@ -260,19 +318,6 @@ class TodoApp extends React.Component {
           categories={this.state.categories}
           displayedCategory={this.state.displayedCategory}
         />
-        <DisplayOptions
-          showCompleted = {this.state.showCompleted}
-          onClick={() =>
-            this.setState({
-              showCompleted: !this.state.showCompleted
-            })
-          }
-        />
-        <div className="taskDisplay box">
-          {filtered.length > 0
-            ? filtered.map((task, i) => this.renderTask(task, i > 0))
-            : message}
-        </div>
       </div>
     );
   }
