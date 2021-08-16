@@ -109,7 +109,7 @@ body {
   outline: none;
 }
 .textBox::placeholder {
-  color: black;
+  color: rgba(172, 139, 139, 0.548);
 }
 .categoryButton,
 .addButton {
@@ -202,7 +202,7 @@ body {
   height: 78%;
   transform: translate(-10pt);
   width: 10%;
-  min-width: 3.5em;
+  min-width: 65px;
 }
 
 h2 {

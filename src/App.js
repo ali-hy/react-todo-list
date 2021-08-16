@@ -45,7 +45,6 @@ class DisplayOptions extends React.Component {
             name="showcompletedcb"
             checked={this.props.showCompleted}
             onChange={() => this.props.onClick()}
-            placeholder={'Enter task here'}
           />
           <label className="showcompletedl" htmlFor="showcompletedcb">
             Show Completed
@@ -130,6 +129,7 @@ class TaskAdder extends React.Component {
               document.getElementById('addButton').click();
             }
           }}
+          placeholder={'Enter task here'}
         />
         <button
           className="addButton"
