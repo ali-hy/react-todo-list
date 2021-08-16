@@ -29,8 +29,8 @@ body {
   position: relative;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1333);
   width: 85%;
-  min-width: 500px;
-  max-width: 900px;
+  /* min-width: 500px;
+  max-width: 900px; */
   margin: auto;
 }
 
@@ -202,13 +202,16 @@ body {
   height: 78%;
   transform: translate(-10pt);
   width: 10%;
+  min-width: 3.5em;
 }
 
 h2 {
+  margin: auto;
+  padding: 0;
   margin-top: 5pt;
   font: 10pt Roboto;
   text-transform: uppercase;
-  width: 100%;
+  width: fit-content;
   text-align: center;
 }
 
