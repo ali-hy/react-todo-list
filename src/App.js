@@ -106,7 +106,8 @@ class TaskAdder extends React.Component {
   }
   render() {
     if (
-      this.state.currentCategory != this.props.displayedCategory &&
+      (!this.state.disableCat ||
+        this.state.currentCategory != this.props.displayedCategory) &&
       this.props.displayedCategory != 0
     ) {
       this.setState({
@@ -196,7 +197,7 @@ class TodoApp extends React.Component {
     if (localStorage.length > 3) {
       let inp = JSON.parse(localStorage.getItem('tasks')); //input
       this.setState({ tasks: inp.slice() });
-      this.setState({ tasks: inp });
+      // this.setState({ tasks: inp });
     } else {
       fetch('https://60d8582ca376360017f45fe2.mockapi.io/todos', {
         method: 'GET',
@@ -268,7 +269,7 @@ class TodoApp extends React.Component {
   render() {
     let message = (
       <h2 className="plsAddTasks">
-        Type a todo in textbox above <br/> then use "ADD" Button to add a task{' '}
+        Type a todo in textbox above <br /> then use "ADD" Button to add a task{' '}
       </h2>
     );
     let filtered = this.state.tasks
@@ -292,7 +293,6 @@ class TodoApp extends React.Component {
           <TaskAdder
             add={x => {
               this.addTask(x);
-              console.log();
             }}
             categories={this.state.categories}
             displayedCategory={this.state.displayedCategory}
