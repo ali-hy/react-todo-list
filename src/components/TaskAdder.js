@@ -36,7 +36,7 @@ export default class TaskAdder extends React.Component {
                 className="textBox"
                 id="textInput"
                 onChange={e => this.setState({ value: e.target.value })}
-                autocomplete="off"
+                autoComplete="off"
                 onKeyUp={e => {
                     if (e.key == "Enter") {
                     e.preventDefault();
@@ -60,35 +60,35 @@ export default class TaskAdder extends React.Component {
                 </button>
 
                 <div className="dropdown">
-                <button
-                    className="categoryButton"
-                    id="category-btn"
-                    onClick={() => drop()}
-                    disabled={this.state.disableCat}
-                >
-                    {this.props.categories[this.state.currentCategory]}
-                </button>
-                <div className="category-picker" id="category-picker">
-                    {this.props.categories
-                    .filter((cat, i) => i != this.state.currentCategory)
-                    .map((category, i) => {
-                        return (
-                        <li className="category-li">
-                            <button
-                            className="category-pick"
-                            onClick={() =>
-                                this.setState({
-                                currentCategory:
-                                    i + (i >= this.state.currentCategory ? 1 : 0)
-                                })
-                            }
-                            >
-                            {category}
-                            </button>
-                        </li>
-                        );
-                    })}
-                </div>
+                    <button
+                        className="categoryButton"
+                        id="category-btn"
+                        onClick={() => drop()}
+                        disabled={this.state.disableCat}
+                    >
+                        {this.props.categories[this.state.currentCategory]}
+                    </button>
+                    <div className="category-picker" id="category-picker">
+                        {this.props.categories
+                        .filter((cat, i) => i != this.state.currentCategory)
+                        .map((category, i) => {
+                            return (
+                            <li key={i} className="category-li">
+                                <button
+                                className="category-pick"
+                                onClick={() =>
+                                    this.setState({
+                                    currentCategory:
+                                        i + (i >= this.state.currentCategory ? 1 : 0)
+                                    })
+                                }
+                                >
+                                {category}
+                                </button>
+                            </li>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         );

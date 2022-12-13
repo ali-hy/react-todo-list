@@ -8,7 +8,7 @@ export default function CategoryPicker (props){
       <h2> Categories </h2>
       <ul>
         {props.categories.map((title, i) => (
-          <li className="cat-li"> 
+          <li key={i} className="cat-li"> 
             {' '}
             <button
               onClick={() => {
