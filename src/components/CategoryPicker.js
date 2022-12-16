@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { selectCategory } from "../redux/category/category.actions";
 import { selectCategories, selectSelectedCategory } from "../redux/category/category.selectors";
 
@@ -32,9 +33,9 @@ function CategoryPicker (props){
   );
 }
 
-const mapStateToProps = state => ({
-  categories: selectCategories(state),
-  displayedCategory: selectSelectedCategory(state)
+const mapStateToProps = createStructuredSelector({
+  categories: selectCategories,
+  displayedCategory: selectSelectedCategory
 })
 
 const mapDispatchToProps = dispatch => ({

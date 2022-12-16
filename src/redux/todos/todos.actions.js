@@ -12,3 +12,8 @@ export const toggleTodoCompletion = id => ({
     type: "TOGGLE_TODO_COMPLETION",
     payload: id
 })
+
+export const setTodos = todos => ({
+    type: "SET_TODOS",
+    payload: todos
+})

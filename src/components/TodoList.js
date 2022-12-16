@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { selectSelectedCategory } from "../redux/category/category.selectors";
 import { selectShowCompleted } from "../redux/show-completed/show-completed.selectors";
 import { removeTodo, toggleTodoCompletion } from "../redux/todos/todos.actions";
@@ -31,10 +32,10 @@ class TodoList extends React.Component{
     }
 }
 
-const mapStateToProps = state => ({
-    todos: selectFilteredTodos(state),
-    displayedCategory: selectSelectedCategory(state),
-    showCompleted: selectShowCompleted(state)
+const mapStateToProps = createStructuredSelector({
+    todos: selectFilteredTodos,
+    displayedCategory: selectSelectedCategory,
+    showCompleted: selectShowCompleted
 })
 
 const mapDispatchToProps = dispatch => ({
