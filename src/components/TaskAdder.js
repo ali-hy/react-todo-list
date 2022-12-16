@@ -1,10 +1,21 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addTodo } from "../redux/todos/todos.actions"; 
 
 function drop() {
     document.getElementById('category-picker').classList.toggle('show');
 }
-  
-export default class TaskAdder extends React.Component {
+
+function todo({title, category}){
+    return {
+        creationDate: new Date(),
+        title: title,
+        completed: false,
+        category: category
+    }
+}
+
+class TaskAdder extends React.Component {
     // Props:
     //  categories -> array of all categories
     //  displayedCategory -> currently displayed category
@@ -17,6 +28,16 @@ export default class TaskAdder extends React.Component {
             value: ''
         };
     }
+
+    resetValue(){
+        this.setState({value: ''});
+    }
+
+    addTodo(){
+        this.props.addTodo(todo({title: this.state.value, category: this.state.currentCategory}));
+        this.resetValue();
+    }
+
     render() {
         if (
             (!this.state.disableCat ||
@@ -32,29 +53,25 @@ export default class TaskAdder extends React.Component {
         return (
             <div className="taskAdder box">
                 <input
-                type="text"
-                className="textBox"
-                id="textInput"
-                onChange={e => this.setState({ value: e.target.value })}
-                autoComplete="off"
-                onKeyUp={e => {
-                    if (e.key == "Enter") {
-                    e.preventDefault();
-                    document.getElementById('addButton').click();
-                    }
-                }}
-                placeholder={'Enter task here'}
+                    type="text"
+                    className="textBox"
+                    id="textInput"
+                    onChange={e => this.setState({ value: e.target.value })}
+                    autoComplete="off"
+                    onKeyUp={e => {
+                        if (e.key == "Enter") {
+                            e.preventDefault();
+                            document.getElementById('addButton').click();
+                        }
+                    }}
+                    placeholder={'Enter task here'}
+                    value = {this.state.value}
                 />
                 <button
-                className="addButton"
-                id="addButton"
-                onClick={() => {
-                    this.props.add(this.state.currentCategory);
-                    this.setState({
-                    value: ''
-                    });
-                }}
-                disabled={this.state.value.trim() == ''}
+                    className="addButton"
+                    id="addButton"
+                    onClick={() => this.addTodo()}
+                    disabled={this.state.value.trim().length < 1}
                 >
                 ADD
                 </button>
@@ -94,3 +111,14 @@ export default class TaskAdder extends React.Component {
         );
     }
 }
+
+const mapStateToProps = state => ({
+    categories: state.category.categories,
+    displayedCategory: state.category.selectedCategory
+})
+
+const mapDispatchToProps = dispatch => ({
+    addTodo: todo => dispatch(addTodo(todo)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskAdder)

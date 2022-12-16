@@ -1,7 +1,10 @@
-export default function CategoryPicker (props){
+import { connect } from "react-redux";
+import { selectCategory } from "../redux/category/category.actions";
+
+function CategoryPicker (props){
   //Props:
   //  onChoice -> when clicking category in banner
-  //  categories -> array of all the avaailable categories
+  //  categories -> array of all the available categories
   //  displayedCategory -> currently displayed category
   return (
     <div className="cat-box">
@@ -27,3 +30,14 @@ export default function CategoryPicker (props){
     </div>
   );
 }
+
+const mapStateToProps = state => ({
+  categories: state.category.categories,
+  displayedCategory: state.category.selectedCategory
+})
+
+const mapDispatchToProps = dispatch => ({
+    onChoice: categoryIndex => dispatch(selectCategory(categoryIndex)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CategoryPicker);
