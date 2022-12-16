@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { selectCategories, selectSelectedCategory } from "../redux/category/category.selectors";
 import { addTodo } from "../redux/todos/todos.actions"; 
 
 function drop() {
@@ -113,8 +114,8 @@ class TaskAdder extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    categories: state.category.categories,
-    displayedCategory: state.category.selectedCategory
+    categories: selectCategories(state),
+    displayedCategory: selectSelectedCategory(state)
 })
 
 const mapDispatchToProps = dispatch => ({

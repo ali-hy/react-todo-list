@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { selectSelectedCategory } from "../redux/category/category.selectors";
+import { selectShowCompleted } from "../redux/show-completed/show-completed.selectors";
 import { removeTodo, toggleTodoCompletion } from "../redux/todos/todos.actions";
+import { selectFilteredTodos } from "../redux/todos/todos.selectors";
 import Todo from "./Todo";
 import { addTaskMessage } from "./TodoApp";
 
@@ -18,22 +21,10 @@ class TodoList extends React.Component{
     }
 
     render(){
-        const filtered = this.props.todos
-        .map((todo, i) => {
-            todo.id = i;
-            return todo;
-        })
-        .filter(
-            todo =>
-            (this.props.showCompleted || !todo.completed) &&
-            (this.props.displayedCategory == 0 ||
-                this.props.displayedCategory == todo.category)
-        );
-
         return(
             <div className="taskDisplay box">
-                {filtered.length > 0
-                ? filtered.map((task, i) => this.renderTask(task, i))
+                {this.props.todos.length > 0
+                ? this.props.todos.map((todo, i) => this.renderTask(todo, i))
                 : addTaskMessage}
             </div>
         )
@@ -41,9 +32,9 @@ class TodoList extends React.Component{
 }
 
 const mapStateToProps = state => ({
-    todos: state.todos.todos,
-    displayedCategory: state.category.selectedCategory,
-    showCompleted: state.showCompleted.showCompleted
+    todos: selectFilteredTodos(state),
+    displayedCategory: selectSelectedCategory(state),
+    showCompleted: selectShowCompleted(state)
 })
 
 const mapDispatchToProps = dispatch => ({

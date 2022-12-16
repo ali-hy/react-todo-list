@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import { selectCategory } from "../redux/category/category.actions";
+import { selectCategories, selectSelectedCategory } from "../redux/category/category.selectors";
 
 function CategoryPicker (props){
   //Props:
@@ -32,8 +33,8 @@ function CategoryPicker (props){
 }
 
 const mapStateToProps = state => ({
-  categories: state.category.categories,
-  displayedCategory: state.category.selectedCategory
+  categories: selectCategories(state),
+  displayedCategory: selectSelectedCategory(state)
 })
 
 const mapDispatchToProps = dispatch => ({

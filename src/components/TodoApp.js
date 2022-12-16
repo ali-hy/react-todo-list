@@ -5,6 +5,7 @@ import DisplayOptions from './DisplayOptions';
 import CategoryPicker from './CategoryPicker';
 import TodoList from './TodoList';
 import { connect } from 'react-redux';
+import { selectFilteredTodos } from '../redux/todos/todos.selectors';
 
 export const addTaskMessage = (
     <h2 className="plsAddTasks">
@@ -74,7 +75,7 @@ class TodoApp extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    todos: state.todos.todos
+    todos: selectFilteredTodos(state)
 })
 
 export default connect(mapStateToProps)(TodoApp)

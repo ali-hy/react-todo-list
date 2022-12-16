@@ -1,12 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { toggleShowCompleted } from "../redux/show-completed/show-completed.actions";
+import { selectShowCompleted } from "../redux/show-completed/show-completed.selectors";
 
 class DisplayOptions extends React.Component {
   //Props:
   //  onClick -> action on click of "show complete"
   //  showCompleted -> showCompleted from App
   render() {
+    console.log("you failed, hehe")
     return (
       <div className="displayofoptions">
         <div className="showcompleted">
@@ -27,7 +29,7 @@ class DisplayOptions extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  showCompleted: state.showCompleted.showCompleted
+  showCompleted: selectShowCompleted(state)
 })
 
 const mapDispatchToProps = dispatch => ({
