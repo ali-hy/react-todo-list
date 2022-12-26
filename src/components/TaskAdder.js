@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { selectCategories, selectSelectedCategory } from "../redux/category/category.selectors";
 import { addTodo } from "../redux/todos/todos.actions"; 
 
@@ -113,9 +114,9 @@ class TaskAdder extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    categories: selectCategories(state),
-    displayedCategory: selectSelectedCategory(state)
+const mapStateToProps = createStructuredSelector({
+    categories: selectCategories,
+    displayedCategory: selectSelectedCategory
 })
 
 const mapDispatchToProps = dispatch => ({

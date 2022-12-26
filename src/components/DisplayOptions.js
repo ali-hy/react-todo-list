@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { toggleShowCompleted } from "../redux/show-completed/show-completed.actions";
 import { selectShowCompleted } from "../redux/show-completed/show-completed.selectors";
 
@@ -28,8 +29,8 @@ class DisplayOptions extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  showCompleted: selectShowCompleted(state)
+const mapStateToProps = createStructuredSelector({
+  showCompleted: selectShowCompleted
 })
 
 const mapDispatchToProps = dispatch => ({
