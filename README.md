@@ -1,4 +1,4 @@
-### A Simple Todo List App In React
+# A Simple Todo List App In React
 
 This project uses redux
 
